@@ -120,9 +120,14 @@
   // No per-frame JS, timers or independent geometry measurements are needed.
   const synchronizeType = () => {
     if (reduced.matches) return;
+    const start = document.timeline.currentTime;
+    // An inactive/not-yet-ready timeline can return null. Assigning null to
+    // startTime pauses the CSS animation instead of letting CSS start it.
+    // Both layers are created in the same style update, so keep their native
+    // CSS timing until there is a usable timeline; never override a user pause.
+    if (!Number.isFinite(start) || section.classList.contains('services-paused') || document.hidden) return;
     const animations = [...section.querySelectorAll('.service-type-track')]
       .flatMap(el => el.getAnimations());
-    const start = document.timeline.currentTime;
     animations.forEach(animation => { animation.startTime = start; });
   };
   document.fonts.ready.then(synchronizeType);
