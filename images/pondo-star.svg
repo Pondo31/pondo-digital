@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none"><defs><linearGradient id="star" x1="10" y1="6" x2="54" y2="58" gradientUnits="userSpaceOnUse"><stop stop-color="#C6A8FF"/><stop offset="1" stop-color="#7948E9"/></linearGradient></defs><path d="M32 3 39 25 61 32 39 39 32 61 25 39 3 32 25 25Z" fill="url(#star)"/></svg>
