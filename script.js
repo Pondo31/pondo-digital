@@ -263,8 +263,24 @@
   });
   // Contacts are opt-in and allowlisted. No empty or invented links.
   const contacts = document.querySelector('#direct-contacts');
+  const createContactArrow = () => {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'icon-arrow');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    const path = document.createElementNS(svg.namespaceURI, 'path');
+    path.setAttribute('d', 'M5 19 19 5M5 5h14v14');
+    path.setAttribute('stroke', 'currentColor');
+    path.setAttribute('stroke-width', '1.6');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    svg.append(path);
+    return svg;
+  };
   const addContact = (label, href) => {
-    const a = document.createElement('a'); a.textContent = label + ' ↗'; a.href = href;
+    const a = document.createElement('a'); a.append(document.createTextNode(label + ' '), createContactArrow()); a.href = href;
     if (href.startsWith('https:')) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
     document.querySelectorAll('[data-contacts]').forEach(container => {
       const link = a.cloneNode(true);
@@ -284,7 +300,7 @@
         title.textContent = label;
         const arrow = document.createElement('span');
         arrow.className = 'footer-contact-arrow';
-        arrow.textContent = '↗';
+        arrow.append(createContactArrow());
         arrow.setAttribute('aria-hidden', 'true');
         link.replaceChildren(badge, title, arrow);
       }
